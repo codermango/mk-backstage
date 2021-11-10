@@ -25,11 +25,23 @@ import { entityPage } from './components/catalog/EntityPage';
 import { searchPage } from './components/search/SearchPage';
 import { Root } from './components/Root';
 
-import { AlertDisplay, OAuthRequestDialog } from '@backstage/core-components';
+import { AlertDisplay, OAuthRequestDialog, SignInProviderConfig, SignInPage } from '@backstage/core-components';
 import { createApp, FlatRoutes } from '@backstage/core-app-api';
+import { githubAuthApiRef } from '@backstage/core-plugin-api';
+
+
+const githubProvider: SignInProviderConfig = {
+  id: 'github-auth-provider',
+  title: 'GitHub',
+  message: 'Sign in with GitHub',
+  apiRef: githubAuthApiRef,
+}
 
 const app = createApp({
   apis,
+  components: {
+    SignInPage: props => <SignInPage {...props} providers={['guest', githubProvider]} />,
+  },
   bindRoutes({ bind }) {
     bind(catalogPlugin.externalRoutes, {
       createComponent: scaffolderPlugin.routes.root,
