@@ -40,7 +40,7 @@ const githubProvider: SignInProviderConfig = {
 const app = createApp({
   apis,
   components: {
-    SignInPage: props => <SignInPage {...props} providers={['guest', githubProvider]} />,
+    SignInPage: props => <SignInPage {...props} providers={[githubProvider]} />,
   },
   bindRoutes({ bind }) {
     bind(catalogPlugin.externalRoutes, {
